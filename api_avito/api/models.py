@@ -5,11 +5,7 @@ from django.db import models
 
 
 class User(AbstractUser):   
-    balance = models.PositiveIntegerField()        
-    
-    def balance(self, balance):
-        self.x = property(balance)
-
+    balance = models.PositiveIntegerField() 
     def __str__(self):
         return self.username
 
@@ -22,4 +18,6 @@ class Payment(models.Model):
         User, on_delete=models.CASCADE,
         related_name='receiver')
     sum = models.PositiveIntegerField()
-    purpose = models.CharField(max_length=200)
+    purpose = models.CharField(max_length=200, blank=True,
+        null=True)
+    currency = models.CharField(max_length=3, default='RUR')
