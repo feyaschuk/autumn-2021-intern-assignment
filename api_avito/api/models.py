@@ -35,7 +35,7 @@ class Payment(models.Model):
 
 class Balance(models.Model):  
     balance = models.PositiveIntegerField(blank=True,
-        null=True) 
+        null=True, default=0) 
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE,
         related_name='owner')
