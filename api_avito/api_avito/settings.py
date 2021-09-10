@@ -20,7 +20,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-sd4t3_*3g(kf89&-bcm-7^v3b-%-4#rixu8!nn$t*bp(t!7n+*'
+SECRET_KEY = (
+    'django-insecure-sd4t3_*3g(kf89&-bcm-7^v3b-%-4#rixu8!nn$t*bp(t!7n+*')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -36,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',    
+    'django.contrib.staticfiles',
     'drf_yasg',
     'rest_framework',
     'django_filters',
@@ -135,6 +136,7 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend',
 
     ),
+    'DATETIME_FORMAT': "%Y-%m-%d - %H:%M:%S",
 
 }
 AUTH_USER_MODEL = 'api.User'
