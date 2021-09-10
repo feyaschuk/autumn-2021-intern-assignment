@@ -43,4 +43,72 @@ python3 manage.py migrate
 ```bash
 python3 manage.py runserver
 ```
-# Примеры запросов:
+# Примеры запросов и ответов:
+POST запрос на регистрацию пользователя:
+```bash
+/api/users/
+```
+```bash
+{"username": "string"}
+```
+```bash
+{ "id": 1,
+  "username": "user1"}
+```
+
+GET запрос на получение списка категорий:
+/api/v1/categories/
+POST запрос на добавление категории:
+/api/v1/categories/
+DELETE запрос на удаление категории:
+/api/v1/categories/{slug}/
+GET запрос на получение списка жанров:
+/api/v1/genres/
+POST запрос на добавление жанры:
+/api/v1/genres/
+DELETE запрос на удаление жанры:
+/api/v1/genres/{slug}/
+GET запрос на получение списка произведений:
+/api/v1/titles/
+POST запрос на добавление произведения:
+/api/v1/titles/
+GET запрос на получение конкретного произведения:
+/api/v1/titles/{title_id}/
+PATCH запрос на изменения произведения:
+/api/v1/titles/{title_id}/
+DELETE запрос на удаление произведения:
+/api/v1/titles/{title_id}/
+GET запрос на получение списка отзывов:
+/api/v1/titles/{title_id}/reviews/
+POST запрос на добавление отзыва:
+/api/v1/titles/{title_id}/reviews/
+GET запрос на получение конкретного отзыва:
+/api/v1/titles/{title_id}/reviews/{review_id}/
+PATCH запрос на изменения отзыва:
+/api/v1/titles/{title_id}/reviews/{review_id}/
+DELETE запрос на удаление отзыва:
+/api/v1/titles/{title_id}/reviews/{review_id}/
+GET запрос на получение списка комментариев:
+/api/v1/titles/{title_id}/reviews/{review_id}/comments/
+POST запрос на добавление комментария:
+/api/v1/titles/{title_id}/reviews/{review_id}/comments/
+GET запрос на получение конкретного комментария:
+/api/v1/titles/{title_id}/reviews/{review_id}/comments/{comment_id}/
+PATCH запрос на изменения комментария:
+/api/v1/titles/{title_id}/reviews/{review_id}/comments/{comment_id}/
+DELETE запрос на удаление комментария:
+/api/v1/titles/{title_id}/reviews/{review_id}/comments/{comment_id}/
+GET запрос на получение списка пользователей:
+/api/v1/users/
+POST запрос на добавление пользователя:
+/api/v1/users/
+GET запрос на получение конкретного пользователя:
+/api/v1/users/{username}/
+PATCH запрос на изменения пользователя:
+/api/v1/users/{username}/
+DELETE запрос на удаление пользователя:
+/api/v1/users/{username}/
+GET запрос на получение данных своей учетной записи:
+/api/v1/users/me/
+PATCH запрос на изменение данных своей учетной записи:
+/api/v1/users/me/
