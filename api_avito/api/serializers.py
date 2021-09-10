@@ -2,75 +2,65 @@ from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers, validators
 from django.shortcuts import get_object_or_404
 from rest_framework.relations import StringRelatedField
+from django.db.models.aggregates import Sum
+from drf_queryfields import QueryFieldsMixin
+from rest_framework.serializers import ModelSerializer
 
-from .models import User, Payment
+from .models import User, Payment, Balance
 
-#class MyModelSerializer(QueryFieldsMixin, ModelSerializer):
-    #include_arg_name = 'show'
-    #exclude_arg_name = 'exclude'
-    #pass
-class BalanceSerializer(ModelSerializer):
-
-    class Meta:
-        model = User
-        fields = ('id','balance',)
+class MyModelSerializer(QueryFieldsMixin, ModelSerializer):
+    include_arg_name = 'currency'
+    pass
 
 class UserSerializer(ModelSerializer):
-
+    
     class Meta:
         model = User
-        fields = (
-            'username',            
-            'balance', )
+        fields = ('id','username', )
 
-class RefillSerializer(ModelSerializer):
-    sender_balance = serializers.SerializerMethodField()   
+class BalanceSerializer(MyModelSerializer):
+    
+    class Meta:
+        model = Balance
+        fields = '__all__'  
 
+
+class RefillSerializer(MyModelSerializer):      
+
+    def validate(self, data):
+        if data['sum'] <= 0:
+            raise validators.ValidationError('Сумма должна быть больше 0')
+        return(data)
+        
     class Meta:
         model = Payment
-        fields = '__all__'    
+        fields = '__all__'  
+        read_only_fields = ('sender', 'receiver', 'operation',)   
+  
 
-    def get_sender_balance(self, obj):        
-        payment = Payment.objects.get(id=obj.id)  
-        sum = obj.sum 
-        balance = payment.sender.balance + sum
-        return balance
+class WithdrawSerializer(MyModelSerializer):
 
-    
-
-class WithdrawSerializer(ModelSerializer):
-    sender_balance = serializers.SerializerMethodField()   
+    def validate(self, data):
+        if data['sum'] <= 0:
+            raise validators.ValidationError('Сумма должна быть больше 0')
+        return(data)
 
     class Meta:
         model = Payment
         fields = '__all__'
-
-    def get_sender_balance(self, obj):        
-        payment = Payment.objects.get(id=obj.id)  
-        sum = obj.sum 
-        balance = payment.sender.balance - sum
-        return balance
-
-class TransferSerializer(ModelSerializer):
-    sender_balance = serializers.SerializerMethodField() 
-    receiver_balance  = serializers.SerializerMethodField() 
-    sender = StringRelatedField(read_only=True)
-    receiver = StringRelatedField(read_only=True)
+        read_only_fields = ('sender', 'receiver', 'operation',)
     
 
+class TransferSerializer(MyModelSerializer):    
+    
+    def validate(self, data):
+        if data['sum'] <= 0:
+            raise validators.ValidationError('Сумма должна быть больше 0')
+        return(data)
+    
     class Meta:
         model = Payment
         fields = '__all__'
-        read_only_fields = ('sender', 'receiver')
-
-    def get_sender_balance(self, obj):        
-        payment = Payment.objects.get(id=obj.id)  
-        sum = obj.sum 
-        balance = payment.sender.balance - sum        
-        return balance
-
-    def get_receiver_balance(self, obj):        
-        payment = Payment.objects.get(id=obj.id)  
-        sum = obj.sum         
-        balance = payment.receiver.balance + sum
-        return balance
+        read_only_fields = ('sender', 'receiver', 'operation',)
+           
+        
