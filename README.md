@@ -59,37 +59,43 @@ python3 manage.py runserver
 ```
 /api/users/
 ```
-
 ```
-{
-    "count": 2,
+{   "count": 2,
     "next": null,
     "previous": null,
     "results": [
+        {   "id": 1,
+            "username": "user1"  },
+            
+        {   "id": 2,
+            "username": "user2"  }    ]}
+```
+##### GET запрос на получение баланса пользователя:
+```
+/api/users/{user_id}/balance/
+```
+```
+{
+    "count": 12,
+    "next": null,
+    "previous": null,
+    "results": [
+        
         {
-            "id": 1,
-            "username": "user1"
+            "id": 12,
+            "balance": 1200,
+            "sum_rub": 100,
+            "created": "2021-09-10 - 17:30:31",
+            "currency": "RUR",
+            "operation": "transfer from user1",
+            "owner": 1
         },
-        {
-            "id": 2,
-            "username": "user2"
-        }
-    ]
-}
 ```
-##### DELETE запрос на удаление категории:
+##### POST запрос на пополнение счета:
 ```
-/api/v1/categories/{slug}/
+/api/users/{user_id}/refill/
 ```
-##### GET запрос на получение списка жанров:
-```
-/api/v1/genres/
-```
-##### POST запрос на добавление жанры:
-```
-/api/v1/genres/
-```
-##### DELETE запрос на удаление жанры:
+
 ```
 /api/v1/genres/{slug}/
 ```
