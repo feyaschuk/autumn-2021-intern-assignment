@@ -44,7 +44,7 @@ python3 manage.py migrate
 python3 manage.py runserver
 ```
 # Примеры запросов и ответов:
-POST запрос на регистрацию пользователя:
+###POST запрос на регистрацию пользователя:
 ```bash
 /api/users/
 ```
