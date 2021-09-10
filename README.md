@@ -55,17 +55,27 @@ python3 manage.py runserver
 { "id": 1,
   "username": "user1"}
 ```
+##### GET запрос на получение списка пользователей:
+```
+/api/users/
+```
 
 ```
-/api/v1/auth/token/
-```
-##### GET запрос на получение списка категорий:
-```
-/api/v1/categories/
-```
-##### POST запрос на добавление категории:
-```
-/api/v1/categories/
+{
+    "count": 2,
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+            "id": 1,
+            "username": "user1"
+        },
+        {
+            "id": 2,
+            "username": "user2"
+        }
+    ]
+}
 ```
 ##### DELETE запрос на удаление категории:
 ```
